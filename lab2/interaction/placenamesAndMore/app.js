@@ -110,6 +110,7 @@ var allFunctions = function () {
         textarea.cols = "60";
         textarea.style.border = "solid 1px black";
         textarea.textContent = this.responseText;
+        document.querySelector("main .forDebug2").innerHTML="";
         document.querySelector("main .forDebug2").append(textarea);
         var xmlData = this.responseXML;
         handleXMLResponse(xmlData);
@@ -128,6 +129,7 @@ var allFunctions = function () {
 
   var handleXMLResponse = function (data) {
     var feature = data.getElementsByTagName("intersection")[0];
+    document.querySelector("#xmlDataAsTable").innerHTML="";
     if (typeof feature !== "undefined" && feature.childNodes.length > 0) {
       var headerRow = document.createElement("tr");
       headerRow.innerHTML = "<th>Property name</th><th>value</th>";
@@ -156,6 +158,7 @@ var allFunctions = function () {
 
   var getAndDisplayMap = function (wms_request) {
     var img = document.createElement("img");
+    document.querySelector("main .mapDiv").innerHTML="";
     img.style.display = "none";
     img.src = wms_request;
     document.querySelector("main .mapDiv").append(img);
@@ -220,25 +223,25 @@ var allFunctions = function () {
     getAndDisplayMap(wms_request);
   };
 
-  var searchFromInput = function () {
-    var postalcodeInput;
-    var countryInput;
+  // var searchFromInput = function () {
+  //   var postalcodeInput;
+  //   var countryInput;
 
-    if (document.querySelector("section#geonames input").value !== "") {
-      postalcodeInput = document.querySelector("#postal").value;
-      countryInput = document.querySelector("#countrySelect").value;
-      var rows = document.querySelectorAll("#resultsTable tr");
-      for (var i = 1; i < rows.length; i++) {
-        rows[i].remove();
-      }
-      document.querySelector("main .messages").textContent = "";
-      document.querySelector("main .forDebug").textContent = "";
+  //   if (document.querySelector("section#geonames input").value !== "") {
+  //     postalcodeInput = document.querySelector("#postal").value;
+  //     countryInput = document.querySelector("#countrySelect").value;
+  //     var rows = document.querySelectorAll("#resultsTable tr");
+  //     for (var i = 1; i < rows.length; i++) {
+  //       rows[i].remove();
+  //     }
+  //     document.querySelector("main .messages").textContent = "";
+  //     document.querySelector("main .forDebug").textContent = "";
 
-      getPlacenames_plain_javascript(postalcodeInput, countryInput);
-    } else {
-      alert("Enter (first part of) postal code");
-    }
-  };
+  //     getPlacenames_plain_javascript(postalcodeInput, countryInput);
+  //   } else {
+  //     alert("Enter (first part of) postal code");
+  //   }
+  // };
 
   document.body.addEventListener("click", function (event) {
     if (event.target.matches("input.theButton2")) {
@@ -297,6 +300,5 @@ var allFunctions = function () {
       requestWMSmap(lat, lng);
     }
   });
-
+};
 document.addEventListener("DOMContentLoaded", allFunctions);
-
